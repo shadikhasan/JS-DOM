@@ -5,10 +5,11 @@ const lowerCase = "abcdefghijklmnopqrstuvwxyz";
 const number = "0123456789";
 const symbol = "!~#$%^&*()_+-|?></'[]{}";
 const allChars = upperCase + lowerCase + number + symbol;
-
+const tooltip = document.querySelector(".tooltip");
 
 function createPassword()
 {
+    tooltip.classList.remove("show");
     let password = "";
     password += upperCase[Math.floor(Math.random() * upperCase.length)];
     password += upperCase[Math.floor(Math.random() * lowerCase.length)];
@@ -24,6 +25,19 @@ function createPassword()
 
 function copyPassword()
 {
-    passwordBox.select();
-    document.execCommand("copy");
+    if(document.execCommand("copy"))
+    {
+        passwordBox.select();
+        document.execCommand("copy");
+        tooltip.classList.add("show");
+        setTimeout(function()
+        {
+            tooltip.classList.remove("show");
+    
+        },1500);
+    }
+    else{
+        alert("Somthething went wrong!");
+    }
+   
 }
